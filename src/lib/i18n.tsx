@@ -39,7 +39,7 @@ type Ctx = {
   dir: "ltr" | "rtl";
   setLang: (l: Lang) => void;
   t: (k: keyof typeof dict) => string;
-  tf: <T extends { name_en: string; name_ar: string }>(o: T, key: "name" | "description" | "category") => string;
+  tf: (o: any, key: "name" | "description" | "category") => string;
 };
 
 const I18nCtx = createContext<Ctx | null>(null);
