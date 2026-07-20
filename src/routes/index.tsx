@@ -1,24 +1,39 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { I18nProvider } from "@/lib/i18n";
+import { CartProvider } from "@/lib/cart";
+import { Header } from "@/components/site/Header";
+import { Hero } from "@/components/site/Hero";
+import { Menu } from "@/components/site/Menu";
+import { Footer } from "@/components/site/Footer";
+import { CartDrawer } from "@/components/site/CartDrawer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "ALKHAL ALDIMASHKI · الخال الدمشقي — Traditional Syrian Restaurant" },
+      { name: "description", content: "Heritage Damascene cuisine — mezze, shawarma, and Syrian classics. Order via WhatsApp." },
+      { property: "og:title", content: "ALKHAL ALDIMASHKI — Traditional Syrian Restaurant" },
+      { property: "og:description", content: "Authentic Damascene mezze, kibbeh, tabbouleh and shawarma. Order via WhatsApp." },
+      { property: "og:type", content: "restaurant" },
+    ],
+  }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Home() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <I18nProvider>
+      <CartProvider>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1">
+            <Hero />
+            <Menu />
+          </main>
+          <Footer />
+          <CartDrawer />
+        </div>
+      </CartProvider>
+    </I18nProvider>
   );
 }
