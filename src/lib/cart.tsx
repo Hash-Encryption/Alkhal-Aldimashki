@@ -56,4 +56,4 @@ export function useCart() {
 }
 
 // WhatsApp phone number for orders — change to real number
-export const WHATSAPP_NUMBER = "1234567890";
+export const WHATSAPP_NUMBER = "966551117889";
