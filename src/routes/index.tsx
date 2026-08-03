@@ -3,7 +3,9 @@ import { I18nProvider } from "@/lib/i18n";
 import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
+import { About } from "@/components/site/About";
 import { Menu } from "@/components/site/Menu";
+import { Location } from "@/components/site/Location";
 import { Footer } from "@/components/site/Footer";
 import { CartDrawer } from "@/components/site/CartDrawer";
 
@@ -28,7 +30,9 @@ function Home() {
           <Header />
           <main className="flex-1">
             <Hero />
+            <About />
             <Menu />
+            <Location />
           </main>
           <Footer />
           <CartDrawer />

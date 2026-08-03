@@ -10,7 +10,7 @@ export type MenuItem = {
   description_en: string;
   description_ar: string;
   price: number;
-  calories?: number;
+  calories: number;
 };
 
 export type MenuCategory = {

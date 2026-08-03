@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
-import { menu } from "@/lib/menu-data";
+import { Flame, Footprints, Plus } from "lucide-react";
+import { menu, type MenuItem } from "@/lib/menu-data";
 import { useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart";
+import { formatPrice, formatWalkingDuration } from "@/lib/formatters";
 
 export function Menu() {
   const { t, tf, lang } = useI18n();
@@ -10,7 +11,7 @@ export function Menu() {
   const [active, setActive] = useState(menu[0].id);
   const [flash, setFlash] = useState<string | null>(null);
 
-  const handleAdd = (item: any) => {
+  const handleAdd = (item: MenuItem) => {
     add(item);
     setFlash(item.id);
     setTimeout(() => setFlash((c) => (c === item.id ? null : c)), 900);
@@ -29,6 +30,10 @@ export function Menu() {
             {t("menu.title")}
           </h2>
           <p className="mt-3 text-[color:var(--muted-foreground)]">{t("menu.sub")}</p>
+          <p className="mt-3 inline-flex items-center justify-center gap-2 text-xs text-[color:var(--muted-foreground)]">
+            <Footprints className="h-3.5 w-3.5 text-[color:var(--gold-deep)]" aria-hidden="true" />
+            {t("menu.walkingNote")}
+          </p>
         </div>
 
         {/* Sticky category nav */}
@@ -98,9 +103,19 @@ export function Menu() {
                         <p className="mt-2 text-sm text-[color:var(--muted-foreground)] leading-relaxed line-clamp-3">
                           {tf(item, "description")}
                         </p>
+                        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-medium">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--rose)]/8 px-2.5 py-1 text-[color:var(--rose)]">
+                            <Flame className="h-3.5 w-3.5" aria-hidden="true" />
+                            {item.calories.toLocaleString()} {t("menu.calories")}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-[color:var(--olive)]/8 px-2.5 py-1 text-[color:var(--olive)]">
+                            <Footprints className="h-3.5 w-3.5" aria-hidden="true" />
+                            {formatWalkingDuration(item.calories, lang)}
+                          </span>
+                        </div>
                         <div className="mt-3 flex items-center gap-3">
                           <span className="text-[color:var(--rose)] font-semibold text-lg">
-                            ${item.price}
+                            {formatPrice(item.price)}
                           </span>
                           <span className="h-px flex-1 bg-gradient-to-r from-[color:var(--gold)]/50 to-transparent rtl:from-transparent rtl:to-[color:var(--gold)]/50" />
                         </div>
@@ -108,7 +123,8 @@ export function Menu() {
 
                       <button
                         onClick={() => handleAdd(item)}
-                        className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                        aria-label={`${flash === item.id ? t("menu.added") : t("menu.add")} ${tf(item, "name")}`}
+                        className={`min-h-11 shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
                           flash === item.id
                             ? "bg-[color:var(--olive)] text-[color:var(--cream)]"
                             : "bg-[color:var(--charcoal)] text-[color:var(--cream)] hover:bg-[color:var(--rose)]"

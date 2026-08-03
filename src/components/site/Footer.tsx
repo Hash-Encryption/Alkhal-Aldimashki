@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png";
 export function Footer() {
   const { t, lang } = useI18n();
   return (
-    <footer id="visit" className="relative bg-[color:var(--charcoal)] text-[color:var(--cream)] mt-20">
+    <footer className="relative bg-[color:var(--charcoal)] text-[color:var(--cream)] mt-20">
       <div className="mx-auto max-w-7xl px-6 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-1">
           <div className="flex items-center gap-3">
